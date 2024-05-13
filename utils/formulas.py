@@ -1,14 +1,16 @@
-def calculate_bmi(weight_kg, height_m):
+#Health Formulas
+def calculate_bmi(weight_kg, height_cm):
     """
     Calculate the Body Mass Index (BMI) given weight in kilograms and height in meters.
     
     Args:
     weight_kg (float): The weight of the person in kilograms.
-    height_m (float): The height of the person in meters.
+    height_cm (float): Height in centimeters.
     
     Returns:
     float: The calculated BMI.
     """
+    height_m = height_cm/100
     bmi = weight_kg / (height_m ** 2)
     return bmi
 
@@ -53,10 +55,7 @@ def calculate_daily_cal_needs(activity_level,bmr):
     activity_multipliers = {"sedentary":1.2,"lightly active":1.375,"moderately active":1.55,"very active":1.725,"extra active":1.9}
 
     return bmr*activity_multipliers[activity_level]
-bmr=calculate_bmr(119.5,183,25,"male")
-print(bmr)
-tdc=calculate_daily_cal_needs("moderately active",bmr)
-print(tdc)
+
 def calculate_cal_deficit(tdc, pounds_to_lose, timeframe):
     """
     Calculates the calorie deficit needed for the user to lose the desired amount
@@ -75,53 +74,8 @@ def calculate_cal_deficit(tdc, pounds_to_lose, timeframe):
     cals_to_lose=3500*time_da
     return deficit
 
-def kg_to_lbs(weight_kg):
-    """
-    Convert weight from kilograms to pounds.
-    
-    Args:
-    weight_kg (float): The weight in kilograms.
-    
-    Returns:
-    float: The weight in pounds.
-    """
-    return weight_kg * 2.20462
 
-def lbs_to_kg(weight_lbs):
-    """
-    Convert weight from pounds to kilograms.
-    
-    Args:
-    weight_lbs (float): The weight in pounds.
-    
-    Returns:
-    float: The weight in kilograms.
-    """
-    return weight_lbs / 2.20462
 
-def cm_to_inches(height_cm):
-    """
-    Convert height from centimeters to inches.
-    
-    Args:
-    height_cm (float): The height in centimeters.
-    
-    Returns:
-    float: The height in inches.
-    """
-    return height_cm / 2.54
-
-def inches_to_cm(height_inches):
-    """
-    Convert height from inches to centimeters.
-    
-    Args:
-    height_inches (float): The height in inches.
-    
-    Returns:
-    float: The height in centimeters.
-    """
-    return height_inches * 2.54
 
 """
     desc

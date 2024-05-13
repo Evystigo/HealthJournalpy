@@ -1,0 +1,27 @@
+Health Journal App/
+│
+├── main.py             # The entry point of your application
+│
+├── config.py           # Handles the loading and updating of configuration settings for the application
+|
+├── config.json         # Configuration settings for the application
+|
+├── apis/               # API module as a package
+│   ├── __init__.py     # Initializes the API package
+│   ├── openfoodfacts.py  # Handles OpenFoodFacts API interactions
+│   ├── google_fit.py   # Handles Google Fit API interactions
+│   ├── fitbit.py       # Handles Fitbit API interactions
+│
+├── gui/                # GUI module as a package
+│   ├── __init__.py     # Initializes the GUI package
+│   ├── main_window.py  # Main window of the GUI
+│   ├── food_log_view.py  # UI components for the food log
+│   ├── nutrition_view.py # UI components for nutritional information
+│
+├── utils/              # Utility module as a package
+│   ├── __init__.py     # Initializes the utility package
+│   ├── validators.py   # Contains data validation functions
+│   ├── converters.py   # Contains data conversion tools
+│   ├── classes.py      # Contains important classes
+
+
