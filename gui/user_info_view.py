@@ -7,7 +7,6 @@ from gui.main_window import MainWindow
 class UserInfoView:
     def __init__(self):
         self.user = load_user() or User()
-        print(self.user)
         self.root = ctk.CTk()
         self.root.title("User Information")
         self.root.geometry("600x500")
@@ -32,7 +31,7 @@ class UserInfoView:
         weight_label = ctk.CTkLabel(self.root, text="Weight")
         weight_label.grid(row=1, column=0, padx=10, pady=5)
         self.weight_entry = ctk.CTkEntry(self.root)
-        #self.weight_entry.insert(0, self.user.weight if self.user.weight else "")
+        self.weight_entry.insert(0, self.user.weight if self.user.weight else "")
         self.weight_entry.grid(row=1, column=1, padx=10, pady=5)
 
         # Height
@@ -66,8 +65,9 @@ class UserInfoView:
         sex = self.sex_var.get()
         age = self.age_entry.get()
         self.user.update(weight, height, sex, age)
-        save_user(self.user.__dict__)
-        self.root.destroy()
+        save_user(self.user)
+        self.root.quit()  # Quit the main loop before destroying the root
+        self.root.destroy()  # Destroy the root window
         main_window = MainWindow(self.user)
         main_window.run()
 

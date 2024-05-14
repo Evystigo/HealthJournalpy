@@ -1,5 +1,6 @@
 import json
 import os
+from utils.classes import User
 
 def load_config(file_path="config.json"):
     """
@@ -7,50 +8,34 @@ def load_config(file_path="config.json"):
     :param file_path: Path to the JSON configuration file, default is 'config.json'.
     :return: A dictionary with the configuration settings.
     """
-    with open(file_path, 'r') as file:
-        config = json.load(file)
-    return config
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as file:
+            config = json.load(file)
+        return config
+    return {}
 
 def load_user(filename='user.json'):
     """
     Load and return the user data from a JSON file.
     :param filename: Path to the JSON user data file, default is 'user.json'.
-    :return: A dictionary with the user data.
+    :return: A User object with the user data.
     """
-    if os.path.exists(filename):
+    if os.path.exists(filename) and os.path.getsize(filename) > 0:
         with open(filename, 'r') as file:
-            user = json.load(file)
-        return user
+            try:
+                user_data = json.load(file)
+                return User.from_dict(user_data)
+            except json.JSONDecodeError:
+                print("Error decoding JSON from user.json")
+                return None
     return None
 
 def save_user(user, filename='user.json'):
     """
     Save the user data to a JSON file.
-    :param user: The user data dictionary to save.
+    :param user: The User object to save.
     :param filename: Path to the JSON user data file, default is 'user.json'.
     """
     with open(filename, 'w') as file:
-        json.dump(user, file, indent=4)
-
-def add_user(user, filename='users.json'):
-    """
-    Add a new user to the users JSON file.
-    :param user: The new user data dictionary to add.
-    :param filename: Path to the JSON users data file, default is 'users.json'.
-    """
-    users = load_user(filename)
-    users.append(user)
-    save_user(users, filename)
-
-# Example usage
-new_user = {
-    "id": "003",
-    "name": "Charlie",
-    "email": "charlie@example.com",
-    "preferences": {
-        "diet": "omnivore",
-        "allergies": ["peanuts"]
-    }
-}
-
-#add_user(new_user)
+        json.dump(user.to_dict(), file, indent=4)
+    print("User data saved.")
